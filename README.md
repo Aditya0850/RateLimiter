@@ -381,7 +381,7 @@ python -m pytest tests/test_routes.py -v       # API endpoint tests
 |---------|----------------|
 | No Hardcoded Secrets | All config via environment variables |
 | Input Validation | Empty/whitespace X-Client-ID rejected (400) |
-| Header-Based ID | Uses X-Client-ID (not X-Forwarded-For) to prevent IP spoofing |
+| Header-Based ID | Uses X-Client-ID header for explicit client identification; falls back to IP if header absent |
 | Trusted Proxy Config | TRUSTED_PROXY_COUNT=0 (no proxy by default) |
 | Request Timeouts | 30s HTTP, 5s MongoDB connection |
 | No Sensitive Logs | No client IDs or internal errors in logs |

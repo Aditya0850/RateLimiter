@@ -10,6 +10,7 @@ from app.config import settings
 from app.database import get_database
 from app.exceptions import (
     DatabaseConnectionException,
+    InvalidClientIdException,
     RateLimitExceededException,
 )
 from app.limiter import RateLimiter
@@ -39,7 +40,9 @@ def get_client_id(
 
     Note: In production behind a load balancer/proxy, configure
     `trusted_proxy_count` in settings and use X-Forwarded-For header
-    with proper validation to prevent IP spoofing.
+    with proper validation. A client-controlled header can be spoofed;
+    production systems should derive client identity from authenticated
+    users, API keys, or a trusted proxy configuration.
     """
     if x_client_id is not None:
         # Header was provided - validate it
